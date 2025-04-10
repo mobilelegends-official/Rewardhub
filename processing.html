@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing...</title>
+    <style>
+        /* General Styles */
+        body {
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container for Content */
+        .container {
+            margin-top: 100px;
+            max-width: 400px;
+            background-color: #1f1f1f;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+            margin: 20px auto;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #333;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            border-radius: 10px;
+            transition: width 2s;
+        }
+
+        /* Share Section */
+        .share-section {
+            margin-top: 30px;
+            display: none; /* Hidden by default */
+        }
+
+        .share-button {
+            padding: 12px 24px;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .share-button:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .share-count {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #FFD700;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+            }
+            .share-button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="logoo.png" alt="Mobile Legends Logo" style="width: 200px; margin-top: 20px;">
+    <div class="container">
+        <!-- Loading Section -->
+        <div id="loadingSection">
+            <h2>Processing Your Rewards...</h2>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section" id="shareSection">
+            <p>Share this link with <strong>1 MLBB group or player </strong> to confirm your reward:</p>
+            <div class="share-count" id="shareCount">
+                Shared: <span id="shareCounter">0</span>/1 times
+            </div>
+            <button class="share-button" onclick="shareOnWhatsApp()">Share Now</button>
+        </div>
+    </div>
+
+    <script>
+        let shareCounter = 0; // Track the number of shares
+
+        // Simulate progress bar
+        document.addEventListener("DOMContentLoaded", () => {
+            const progress = document.getElementById("progress");
+            progress.style.width = "100%";
+
+            // After 3 seconds, show the share section
+            setTimeout(() => {
+                document.getElementById("loadingSection").style.display = "none";
+                document.getElementById("shareSection").style.display = "block";
+            }, 3000); // 3 seconds delay
+        });
+
+        // Function to share on WhatsApp
+        function shareOnWhatsApp() {
+            const shareLink = window.location.href; // Use the current page URL as the shareable link
+            const message = `🎮 *Mobile Legends Rewards* 🎮\n\nShare this link with 1 MLBB players to confirm your reward:\n${shareLink}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, "_blank");
+
+            // Increment the share counter
+            shareCounter++;
+            document.getElementById("shareCounter").innerText = shareCounter;
+
+            // Show success message for the current share
+            alert(`${shareCounter} time shared successfully!`);
+
+            // If shared 5 times, redirect to success.html
+            if (shareCounter >= 1) {
+                window.location.href = "success.html";
+            }
+        }
+    </script>
+</body>
+</html>

